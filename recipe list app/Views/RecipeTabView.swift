@@ -11,7 +11,8 @@ struct RecipeTabView: View {
     var body: some View {
         
         TabView {
-            Text("Featured")
+            
+            RecipeFeaturedView()
                 .tabItem {
                     Image(systemName: "star.fill")
                     Text("Featured")
@@ -22,7 +23,7 @@ struct RecipeTabView: View {
                     Image(systemName: "list.bullet")
                     Text("List")
                 }
-        }
+        }.environmentObject(RecipeModel())
     }
 }
 
