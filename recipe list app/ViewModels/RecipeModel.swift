@@ -8,11 +8,21 @@
 import Foundation
 
 class RecipeModel: ObservableObject {
+    
     @Published var recipes = [Recipe]()
+    @Published var categories = Set<String>()
+    @Published var selectedCategory: String?
     
     init() {
         // create an instance of data service and get the data
         self.recipes = DataService.getLocalData()
+        
+        // Set will automatically filter out duplicates, you are left with a set with unique category
+        self.categories = Set(self.recipes.map { r in
+            return r.category
+        })
+        
+        self.categories.update(with: Constants.defaultListFilter)
     }
     
     static func getPortion(ingredient: Ingredient, recipeServings: Int, targetServings: Int) -> String {
